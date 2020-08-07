@@ -2,8 +2,8 @@
 from conans import ConanFile, CMake, tools
 import os
 
-class PipelineJobXConan(ConanFile):
-    name = "test"
+class SunConan(ConanFile):
+    name = "Sun"
     user = "aev25"
     version = "0.1.0"
     channel = "stable"
