@@ -32,11 +32,10 @@ jobs:
       - name: Build
         run: |
           conan_build_info --v2 start ${{ github.event.repository.name }} ${{ github.run_number }}
-          conan create .
+          conan create . --lockfile-out=conan.lock
       - name: Upload
         run: conan upload ${{ github.event.repository.name }}/0.1.0@aev25/stable -r conan_repo --all
       - name: Build info
         run: |
-          conan lock create conanfile.py --lockfile-out=conan.lock
           conan_build_info --v2 create buildinfo.json --lockfile conan.lock --user ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_PASSWORD }}
           conan_build_info --v2 publish buildinfo.json --url ${{ secrets.ARTIFACTORY_REPOSITORY }}/artifactory --user ${{ secrets.ARTIFACTORY_USERNAME }} --password ${{ secrets.ARTIFACTORY_PASSWORD }}
